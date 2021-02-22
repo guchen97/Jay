@@ -5,18 +5,16 @@ import baseURL from "@/config";
 axios.create({
   baseURL: baseURL,
   timeout: 10000,
-  headers.post['Content-Type']: 'application/x-www-form-urlencoded'
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: localStorage.getItem("token") || ""
+  }
 });
 
 // 请求拦截
 axios.interceptors.request.use(
-  config => {
-    config.headers.Authorization = localStorage.getItem("token") || "";
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  }
+  config => config,
+  error => { return Promise.reject(error) } 
 );
 
 // 响应拦截
